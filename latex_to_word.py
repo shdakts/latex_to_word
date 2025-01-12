@@ -10,35 +10,32 @@ import shutil
 
 def latex_to_word(latex_file, output_file):
     """
-    LaTeX dosyasını Word formatına (docx) dönüştürür.
+    Converts a LaTeX file into Word format (docx).
     
     Args:
-        latex_file (str): Dönüştürülecek LaTeX dosyasının tam dosya yolu. 
-                          
-        output_file (str): Oluşturulacak Word dosyasının tam dosya yolu. 
-                           
+        latex_file (str): Full file path of the LaTeX file to be converted.
+        output_file (str): Full file path of the output Word document.
     
     Returns:
-        None: Fonksiyon bir değer döndürmez.
+        None: The function does not return a value.
     """
-    # Pandoc'un kurulu olup olmadığını kontrol et
+    # Check if Pandoc is installed
     if not shutil.which("pandoc"):
-        raise EnvironmentError("Pandoc yüklü değil. Lütfen Pandoc'u yükleyin.")
+        raise EnvironmentError("Pandoc is not installed. Please install Pandoc.")
     
     try:
-        # Pandoc komutunu çalıştır
+        # Run the Pandoc command
         subprocess.run(
             ["pandoc", latex_file, "-o", output_file],
             check=True
         )
-        print(f"Dönüştürme tamamlandı: {output_file}")
+        print(f"Conversion completed: {output_file}")
     except subprocess.CalledProcessError as e:
-        print("Dönüştürme sırasında bir hata oluştu:", e)
+        print("An error occurred during conversion:", e)
 
-# Örnek kullanım
-latex_file = "C:/Users/User/Desktop/simple.tex"  # LaTeX dosyasının tam yolu
-output_file = "C:/Users/User/Desktop/simple.docx"  # Çıkış Word dosyasının tam yolu
+# Example usage
+latex_file = "C:/Users/User/Desktop/simple.tex"  # Full path to the LaTeX file
+output_file = "C:/Users/User/Desktop/simple.docx"  # Full path to the output Word file
 
-# Fonksiyonu çağır
+# Call the function
 latex_to_word(latex_file, output_file)
-
